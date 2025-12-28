@@ -13,12 +13,16 @@ warnings.filterwarnings("ignore")
 
 import google.generativeai as genai
 from telegram import Bot
+from github import Github # <--- NEW: Importing the cloud connector
 
 # --- 🔐 SECRETS MANAGEMENT ---
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 KEYS_STRING = os.environ.get("GEMINI_KEYS")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") # <--- NEW
+GITHUB_REPO = os.environ.get("GITHUB_REPO")   # <--- NEW
 
-if not TELEGRAM_TOKEN or not KEYS_STRING:
+# Check if we need to load from secrets.toml (Local Dev Mode)
+if not TELEGRAM_TOKEN or not KEYS_STRING or not GITHUB_TOKEN:
     try:
         import toml
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,6 +30,8 @@ if not TELEGRAM_TOKEN or not KEYS_STRING:
         with open(secrets_path, "r") as f:
             local_secrets = toml.load(f)
             TELEGRAM_TOKEN = TELEGRAM_TOKEN or local_secrets.get("TELEGRAM_TOKEN")
+            
+            # Load Gemini Keys
             raw_keys = local_secrets.get("GEMINI_KEYS")
             if isinstance(raw_keys, list):
                 GEMINI_API_KEYS = raw_keys
@@ -33,6 +39,11 @@ if not TELEGRAM_TOKEN or not KEYS_STRING:
                 GEMINI_API_KEYS = raw_keys.split(",")
             else:
                 GEMINI_API_KEYS = []
+            
+            # Load GitHub Secrets
+            GITHUB_TOKEN = GITHUB_TOKEN or local_secrets.get("GITHUB_TOKEN")
+            GITHUB_REPO = GITHUB_REPO or local_secrets.get("GITHUB_REPO")
+
     except Exception:
         pass
 else:
@@ -133,7 +144,22 @@ async def send_safe_message(bot, chat_id, text):
         print(f"⚠️ HTML Parse Error: {e}. Sending raw text.")
         await bot.send_message(chat_id=chat_id, text=text)
 
+# --- ☁️ CONFIG LOADER (UPDATED) ---
 def load_config():
+    # 1. Try fetching from GitHub (The Cloud Truth)
+    if GITHUB_TOKEN and GITHUB_REPO:
+        try:
+            print("☁️ Fetching config from GitHub...")
+            g = Github(GITHUB_TOKEN)
+            repo = g.get_repo(GITHUB_REPO)
+            contents = repo.get_contents("config.json")
+            decoded = contents.decoded_content.decode()
+            return json.loads(decoded)
+        except Exception as e:
+            print(f"⚠️ Cloud load failed: {e}. Falling back to local.")
+
+    # 2. Fallback to Local File
+    print("📂 Loading local config...")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(script_dir, 'config.json')
     try:
@@ -144,7 +170,9 @@ async def send_chaos():
     bot = Bot(token=TELEGRAM_TOKEN)
     config = load_config()
     
-    if not config: return 
+    if not config:
+        print("❌ Config could not be loaded. Aborting mission.")
+        return 
 
     if "--quiz" in sys.argv: roll = 90
     elif "--fact" in sys.argv: roll = 60
@@ -192,7 +220,8 @@ async def send_chaos():
         
         # BATCH REQUEST: Ask for ALL questions in ONE prompt
         prompt = f"""
-        Generate {num_q} multiple-choice questions about {unit} for a 4th Year Student.
+        Generate {num_questions} multiple-choice questions about {target_unit} for a 4th Year Student.
+        Difficulty: {config['difficulty']}.
         
         Strict JSON format: Return a LIST of objects.
         [
@@ -201,7 +230,7 @@ async def send_chaos():
         ]
         
         Limits: Question < 250 chars, Options < 100 chars.
-        """.replace("{num_questions}", str(num_q)) # Safe replace
+        """.replace("{num_questions}", str(num_q)).replace("{target_unit}", unit) # Safe replace
 
         response = generate_content_safe(prompt)
         
