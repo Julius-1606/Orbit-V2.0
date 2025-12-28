@@ -1,0 +1,24 @@
+--- 🛡️ SECURITY (DO NOT TOUCH) ---
+
+.streamlit/secrets.toml
+.env
+.env.local
+secrets.toml
+keys.json
+config_private.json
+
+--- Python ---
+
+pycache/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+--- IDE & System ---
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
