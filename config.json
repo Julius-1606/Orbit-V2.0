@@ -1,0 +1,139 @@
+{
+    "user_name": "Commander",
+    "semester_status": "Year 4 - Redemption Arc",
+    "current_units": [
+        "Biochemistry II",
+        "General Surgery",
+        "Community Health",
+        "Python Programming",
+        "Embryology",
+        "Clinical Methods",
+        "Anatomy of the abdomen and thorax",
+        "Tropical Medicine",
+        "Palliative Medicine",
+        "Skills Lab Methodology",
+        "General Pharmacology",
+        "Internal Medicine I",
+        "General Pharmacology I",
+        "Essentials of disaster management",
+        "Complimentary medicine",
+        "Medical Biochemistry",
+        "Human Physiology"
+    ],
+    "unit_inventory": {
+        "Year 1": {
+            "Semester 1": [
+                "Cell Biology and Genetics",
+                "Introduction to HIV/AIDS"
+            ],
+            "Semester 2": [
+                "Basic Life Support",
+                "Medical Biochemistry",
+                "Nursing Skills",
+                "Human Physiology I"
+            ],
+            "Semester 3": [
+                "Medical Microbiology",
+                "Human Physiology II",
+                "Anatomy of the upper limb",
+                "Immunology",
+                "Medical Parasitology",
+                "General Pathology I",
+                "Embryology"
+            ]
+        },
+        "Year 2": {
+            "Semester 1": [
+                "General Pathology II",
+                "Biostatistics",
+                "Haematology",
+                "Human Nutrition",
+                "Epidemiology",
+                "Clinical Methods I",
+                "HIV/AIDS"
+            ],
+            "Semester 2": [
+                "Embryology",
+                "Medical Biochemistry",
+                "Human Physiology",
+                "Anatomy of the upper limb",
+                "Immunology",
+                "Medical Parasitology",
+                "General Pathology I",
+                "Clinical Methods",
+                "Anatomy of the abdomen and thorax",
+                "General Pharmacology I",
+                "Tropical Medicine",
+                "Internal Medicine I",
+                "Palliative Medicine",
+                "General Pharmacology",
+                "Skills Lab Methodology",
+                "Complimentary medicine",
+                "Essentials of disaster management"
+            ],
+            "Semester 3": [
+                "Internal Medicine II",
+                "Community Diagnosis",
+                "clinical pathology",
+                "Social Work and Community development",
+                "Health Service Management",
+                "Clinical Pharmacology I",
+                "Environmental and occupational Health",
+                "Medical Educaton"
+            ]
+        },
+        "Year 3": {
+            "Semester 1": [
+                "Clinical Pathology II",
+                "Medicine II",
+                "Child Health",
+                "General Surgery I",
+                "Orthopedics",
+                "Reproductive Health",
+                "Reproductive Health",
+                "Obstetrics and Gynecology",
+                "Junior Clerkship and Practicum"
+            ],
+            "Semester 2": [
+                "Orthopedics II",
+                "General Surgery II",
+                "Obsentrics and Gynecology II",
+                "Forensic Medicine",
+                "Intermediate Clerkship",
+                "Emergency Paediatrics",
+                "Mental Health and Substsance Abuse",
+                "Clinical Pharmacology II"
+            ],
+            "Semester 3": [
+                "Clinical Pharmacology III",
+                "Dental Health",
+                "Ear, nose and Throat (ENT)",
+                "Ophthalmology",
+                "Senior Clerkship"
+            ]
+        },
+        "Year 4": {
+            "Semester 1": [
+                "Senior Clerkship",
+                "Community Rural Attachment",
+                "Research Project"
+            ],
+            "Semester 2": [
+                "Anaesthesiology",
+                "Dermatology",
+                "Imaging Sciences",
+                "Senior Clerkship II"
+            ],
+            "Semester 3": [
+                "Ward Rotations"
+            ]
+        }
+    },
+    "interests": [
+        "Space Exploration",
+        "Forex Trading Strategies",
+        "Artificial Intelligence",
+        "Coding (Python)"
+    ],
+    "difficulty": "Asian Parent Expectations (Extreme)"
+}
