@@ -13,7 +13,7 @@ from github import Github
 from datetime import datetime
 
 # --- ⚙️ SETTINGS ---
-MAX_ARCHIVED_SESSIONS = 10 # Keep last 10 full conversations
+MAX_ARCHIVED_SESSIONS = 10 
 
 # --- 🔐 SECURE KEYCHAIN ---
 GEMINI_API_KEYS = []
@@ -41,66 +41,97 @@ if not GEMINI_API_KEYS:
 
 if "key_index" not in st.session_state: st.session_state.key_index = 0
 
+# --- 🧠 BRAIN CONFIGURATION (OPTIMIZED) ---
 def configure_genai():
+    """Sets the active API key based on session state index."""
     try:
-        current_key = GEMINI_API_KEYS[st.session_state.key_index]
+        # Wrap index safety
+        idx = st.session_state.key_index % len(GEMINI_API_KEYS)
+        current_key = GEMINI_API_KEYS[idx]
         genai.configure(api_key=current_key)
         return True
     except Exception: return False
 
-def rotate_key():
-    if len(GEMINI_API_KEYS) > 1:
-        st.session_state.key_index = (st.session_state.key_index + 1) % len(GEMINI_API_KEYS)
-        configure_genai()
-        st.toast(f"🔄 Swapping to Key #{st.session_state.key_index + 1}", icon="🔑")
-        global model
-        model = get_valid_model()
-        return True
-    return False
-
-configure_genai()
-
-# 📡 SONAR 
-def get_valid_model():
+def resolve_model_name():
+    """Scans for the best model ONCE and caches it."""
     try:
+        configure_genai()
         models = list(genai.list_models())
         valid_models = [m.name for m in models if 'generateContent' in m.supported_generation_methods]
         
+        # Priority 1: Flash 1.5
         for m in valid_models:
             if 'gemini-1.5-flash' in m and 'latest' not in m and 'exp' not in m:
-                return genai.GenerativeModel(m.replace("models/", ""))
+                return m.replace("models/", "")
         
+        # Priority 2: Any Flash
         for m in valid_models:
              if 'flash' in m and 'gemini-2' not in m and 'exp' not in m:
-                return genai.GenerativeModel(m.replace("models/", ""))
+                return m.replace("models/", "")
 
+        # Priority 3: Anything else
         if valid_models:
-            return genai.GenerativeModel(valid_models[0].replace("models/", ""))
+            return valid_models[0].replace("models/", "")
     except Exception:
         pass
-    return genai.GenerativeModel('gemini-1.5-flash')
+    return "gemini-1.5-flash" # Fallback
 
-model = get_valid_model()
+# 1. Initialize Model Name (Only once per session)
+if "model_name" not in st.session_state:
+    with st.spinner("🛰️ Establishing Uplink..."):
+        st.session_state.model_name = resolve_model_name()
+
+# 2. Configure & Instantiate (Runs on every rerun)
+configure_genai()
+model = genai.GenerativeModel(st.session_state.model_name)
+
+def rotate_key():
+    """Switches key index and re-instantiates model without re-scanning."""
+    if len(GEMINI_API_KEYS) <= 1:
+        st.toast("❌ No backup keys available.", icon="🛑")
+        return False
+
+    st.session_state.key_index = (st.session_state.key_index + 1) % len(GEMINI_API_KEYS)
+    
+    # Re-configure global genai with new key
+    configure_genai()
+    
+    # Update global model object
+    global model
+    model = genai.GenerativeModel(st.session_state.model_name)
+    
+    st.toast(f"🔄 Swapped to Key #{st.session_state.key_index + 1}", icon="🔑")
+    return True
 
 def ask_orbit(prompt):
     global model
-    max_retries = 3
+    # Retry loop: Try all keys + 1 extra attempt
+    max_retries = len(GEMINI_API_KEYS) + 1
+    
     for attempt in range(max_retries):
         try:
             return model.generate_content(prompt)
         except Exception as e:
             err_msg = str(e)
-            if "leaked" in err_msg.lower() or "403" in err_msg:
-                 st.toast(f"⚠️ Key #{st.session_state.key_index+1} Leaked. Rotating...", icon="🔥")
-                 if rotate_key():
-                    time.sleep(1)
-                    continue
-            elif "429" in err_msg:
-                if rotate_key():
-                    time.sleep(1)
-                    continue
+            is_quota = "429" in err_msg or "quota" in err_msg.lower() or "ResourceExhausted" in err_msg
+            is_auth = "403" in err_msg or "leaked" in err_msg.lower() or "API key" in err_msg
             
+            if is_quota or is_auth:
+                 reason = "Quota" if is_quota else "Auth"
+                 # st.toast(f"⚠️ Key #{st.session_state.key_index+1} Failed ({reason}). Rotating...", icon="🔥")
+                 if rotate_key():
+                    time.sleep(1) # Short breather
+                    continue
+                 else:
+                    return None
+            
+            # Non-critical error (Server side 500 etc)
             print(f"❌ Chat Error: {err_msg}")
+            # Optional: retry once for server errors without rotating
+            if attempt < max_retries - 1:
+                time.sleep(1)
+                continue
+                
             return None
     return None
 
@@ -195,14 +226,11 @@ if config:
         with c1:
             st.subheader("🧠 Neural Link")
         with c2:
-            # ✨ NEW CHAT LOGIC ✨
             if st.button("➕ New Chat", use_container_width=True, help="Archive current session and start fresh"):
                 current_msgs = st.session_state.messages
                 if current_msgs:
-                    # 1. Create Archive Object
                     if 'archived_sessions' not in config: config['archived_sessions'] = []
                     
-                    # Generate a summary title from the first user message, or default
                     first_user_msg = next((m['content'] for m in current_msgs if m['role'] == 'user'), "Empty Session")
                     summary = (first_user_msg[:40] + '...') if len(first_user_msg) > 40 else first_user_msg
                     
@@ -212,37 +240,27 @@ if config:
                         "messages": current_msgs
                     }
                     
-                    # 2. Add to Archives (Newest First)
                     config['archived_sessions'].insert(0, session_archive)
-                    
-                    # 3. Trim Archives
                     config['archived_sessions'] = config['archived_sessions'][:MAX_ARCHIVED_SESSIONS]
-                    
-                    # 4. Clear Active Session in Config
                     config['active_session'] = []
                     
-                    # 5. Save & Reset
                     save_config(config)
                     st.session_state.config = config
                     st.session_state.messages = []
                     st.rerun()
 
-        # 1. Load Active Session from Config (Persistence)
         if "messages" not in st.session_state:
             st.session_state.messages = config.get('active_session', [])
 
-        # 2. Display Messages
         for msg in st.session_state.messages:
             with st.chat_message(msg["role"]): st.markdown(msg["content"])
 
-        # 3. Chat Input
         if prompt := st.chat_input("Ask Orbit..."):
             st.session_state.messages.append({"role": "user", "content": prompt})
             with st.chat_message("user"): st.markdown(prompt)
             
             with st.chat_message("assistant"):
                 with st.spinner("Thinking..."):
-                    # Context: Only current session + User profile
                     ctx = f"""
                     You are Orbit. 
                     User studies: {', '.join(config['current_units'])}. 
@@ -256,15 +274,13 @@ if config:
                         st.markdown(response_obj.text)
                         st.session_state.messages.append({"role": "assistant", "content": response_obj.text})
                         
-                        # --- REAL-TIME PERSISTENCE ---
-                        # Save active session immediately so it survives refresh
                         config['active_session'] = st.session_state.messages
                         save_config(config)
                         st.session_state.config = config
                     else:
                         st.error("⚠️ Connection Interrupted.")
 
-    # --- TAB 2: ARCHIVED SESSIONS (THE NEW HISTORY) ---
+    # --- TAB 2: ARCHIVED SESSIONS ---
     with tab2:
         st.subheader("🗂️ Session Archives")
         st.caption(f"Storing last {MAX_ARCHIVED_SESSIONS} completed sessions.")
@@ -275,7 +291,6 @@ if config:
             st.info("No archives found. Finish a chat and hit 'New Chat' to file it here.")
         else:
             for i, session in enumerate(archives):
-                # Expander acts like the "Chat List" in Gemini
                 label = f"📅 {session['timestamp']} | 📝 {session['summary']}"
                 with st.expander(label, expanded=False):
                     for msg in session['messages']:
