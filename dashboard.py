@@ -66,7 +66,7 @@ with st.sidebar:
                         config['chat_history'].append({"role": "assistant", "content": response_obj.text})
                         
                         # 2. Trim History (Sliding Window on the LOG, not the session)
-                        config['chat_history'] = config['chat_history'][-MAX_HISTORY:]
+                        config['chat_history'] = config['chat_history'][-100:]
                         
                         # 3. Save to Cloud/Local
                         save_config(config)
@@ -77,7 +77,7 @@ with st.sidebar:
     # --- TAB 2: HISTORY ARCHIVE ---
     with tab2:
         st.subheader("📜 Archives")
-        st.caption(f"Showing last {MAX_HISTORY} interactions across all sessions.")
+        st.caption(f"Showing last 100 interactions across all sessions.")
         
         history = config.get('chat_history', [])
         if not history:
