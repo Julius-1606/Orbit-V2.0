@@ -257,5 +257,5 @@
             ]
         }
     ],
-    "low_data_mode": true
+    "low_data_mode": false
 }
