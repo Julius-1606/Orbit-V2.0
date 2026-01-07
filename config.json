@@ -244,5 +244,5 @@
         }
     ],
     "low_data_mode": false,
-    "lock_background": true
+    "lock_background": false
 }
