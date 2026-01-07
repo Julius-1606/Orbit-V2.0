@@ -244,5 +244,6 @@
         }
     ],
     "low_data_mode": false,
-    "lock_background": false
+    "lock_background": false,
+    "ai_persona": "Socratic Tutor"
 }
