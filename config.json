@@ -243,6 +243,6 @@
             ]
         }
     ],
-    "low_data_mode": false,
+    "low_data_mode": true,
     "lock_background": true
 }
