@@ -195,20 +195,6 @@
     ],
     "archived_sessions": [
         {
-            "timestamp": "2026-01-14 06:08",
-            "summary": "Heart diseases ",
-            "messages": [
-                {
-                    "role": "user",
-                    "content": "Heart diseases "
-                },
-                {
-                    "role": "assistant",
-                    "content": "That is an expansive and essential field of study, covering everything from basic physiology to complex surgical intervention. Given the rigor expected of a comprehensive medical curriculum, we cannot approach this superficially.\n\nThe term \"Heart diseases\" is massive.\n\nBefore we delve into specific conditions, we must structure our understanding. How would you, based on your knowledge of Anatomy, Clinical Methods, and Internal Medicine, logically categorize the entire spectrum of heart diseases?\n\nMore importantly, if you had to identify the **single dominant underlying pathophysiological process** that accounts for the overwhelming majority of non-congenital cardiac morbidity and mortality in the adult population globally, what would that process be, and why is its management central to modern Internal Medicine?"
-                }
-            ]
-        },
-        {
             "timestamp": "2026-01-07 20:06",
             "summary": "Let us revise cell biology, focusing mor...",
             "messages": [
