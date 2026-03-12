@@ -487,5 +487,14 @@
     ],
     "low_data_mode": false,
     "lock_background": false,
-    "ai_persona": "Standard Orbit"
+    "ai_persona": "Standard Orbit",
+    "quiz_history": [
+        {
+            "timestamp": "2026-03-12 12:07",
+            "unit": "Biochemistry II",
+            "score": 0,
+            "total": 7,
+            "pnl": 0.0
+        }
+    ]
 }
