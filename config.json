@@ -154,11 +154,11 @@
     "active_session": [
         {
             "role": "user",
-            "content": "Maths "
+            "content": "Let us kick off with anatomy"
         },
         {
             "role": "assistant",
-            "content": "Hello! I am **Edu_AI**, your academic assistant. Since your curriculum focuses on medical and biological sciences, \"Maths\" in this context usually refers to **Medical Mathematics** or **Biostatistics**. \n\nAt an **Easy (Review)** level, let\u2019s look at how mathematics is applied across your current subjects like Pharmacology, Community Health, and Biochemistry.\n\n---\n\n### 1. General Pharmacology (Dosage Calculations)\nIn pharmacology, you must be able to calculate the correct dose of a drug to ensure patient safety.\n*   **The Basic Formula:** \n    $$\\text{Volume to Administer} = \\frac{\\text{Desired Dose}}{\\text{Stock Strength}} \\times \\text{Volume of Stock}$$\n*   **Example:** A doctor orders 250mg of an antibiotic. The stock available is 500mg per 5mL. \n    *   *Calculation:* $(250 / 500) \\times 5 = 2.5\\text{ mL}$.\n\n### 2. Community Health & Tropical Medicine (Epidemiology)\nMath is used here to track the spread of diseases and the health of a population.\n*   **Incidence Rate:** The number of *new* cases in a specific time period.\n*   **Prevalence Rate:** The *total* number of cases (new + old) in a population at a specific time.\n*   **Formula:** $\\frac{\\text{Number of Cases}}{\\text{Total Population at Risk}} \\times 1,000 \\text{ (or } 100,000)$\n\n### 3. Biochemistry & Physiology (Solutions and Equilibrium)\n*   **Molarity (M):** Used to define the concentration of solutes in bodily fluids.\n    *   $M = \\text{moles of solute} / \\text{liters of solution}$.\n*   **pH Calculation:** Essential for understanding acid-base balance in Human Physiology.\n    *   $pH = -\\log[H^+]$.\n*   **BMI (Body Mass Index):** A common clinical method tool.\n    *   $BMI = \\frac{\\text{Weight (kg)}}{\\text{Height (m)}^2}$.\n\n### 4. General Surgery & Internal Medicine (Fluid Management)\nCalculating IV drip rates is a vital skill lab methodology.\n*   **Drip Rate (drops/min):** \n    $$\\frac{\\text{Total Volume (mL)} \\times \\text{Drop Factor (gtt/mL)}}{\\text{Time (minutes)}}$$\n\n---\n\n### Quick Review Question:\nTo test your current level, try this simple pharmacology calculation:\n\n**Scenario:** You are in a clinical rotation for Internal Medicine. You need to administer **150 mg** of a medication. The vial says **300 mg / 2 mL**. How many milliliters (mL) will you draw into the syringe?\n\n*(Hint: Use the formula from Section 1 above!)*\n\n**Would you like me to provide more examples in a specific subject area, like Biostatistics or Renal Clearance calculations?**"
+            "content": "Hello! I am **Edu_AI**, your academic assistant. Since we are focusing on an **Easy Review** level for **Anatomy (Abdomen and Thorax)**, let\u2019s start with a foundational question regarding the division of the trunk.\n\n**Question:**\nThe diaphragm serves as the anatomical landmark separating the thoracic cavity from the abdominal cavity. Can you name the **three major openings (hiatuses)** in the diaphragm and the specific **vertebral levels** at which they occur?"
         }
     ],
     "archived_sessions": [
@@ -501,7 +501,7 @@
     ],
     "low_data_mode": false,
     "lock_background": false,
-    "ai_persona": "Standard Orbit",
+    "ai_persona": "Standard Edu_AI",
     "quiz_history": [
         {
             "timestamp": "2026-03-12 12:07",
