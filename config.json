@@ -509,6 +509,13 @@
             "score": 0,
             "total": 7,
             "pnl": 0.0
+        },
+        {
+            "timestamp": "2026-03-13 00:08",
+            "unit": "Medical Biochemistry",
+            "score": 4,
+            "total": 6,
+            "pnl": 66.66666666666666
         }
     ]
 }
