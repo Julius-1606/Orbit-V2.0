@@ -523,6 +523,13 @@
             "score": 1,
             "total": 1,
             "pnl": 100.0
+        },
+        {
+            "timestamp": "2026-03-13 05:12",
+            "unit": "clinical pathology",
+            "score": 1,
+            "total": 8,
+            "pnl": 12.5
         }
     ]
 }
