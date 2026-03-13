@@ -549,6 +549,13 @@
             "score": 3,
             "total": 3,
             "pnl": 100.0
+        },
+        {
+            "timestamp": "2026-03-13 00:50",
+            "unit": "Clinical Methods",
+            "score": 3,
+            "total": 3,
+            "pnl": 100.0
         }
     ]
 }
