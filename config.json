@@ -505,7 +505,7 @@
         }
     ],
     "low_data_mode": false,
-    "lock_background": false,
+    "lock_background": true,
     "ai_persona": "Standard Edu_AI",
     "quiz_history": [
         {
