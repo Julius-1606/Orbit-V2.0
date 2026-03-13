@@ -506,7 +506,7 @@
     ],
     "low_data_mode": false,
     "lock_background": false,
-    "ai_persona": "Standard Orbit",
+    "ai_persona": "Standard Edu_AI",
     "quiz_history": [
         {
             "timestamp": "2026-03-12 12:07",
@@ -535,6 +535,13 @@
             "score": 1,
             "total": 8,
             "pnl": 12.5
+        },
+        {
+            "timestamp": "2026-03-13 05:44",
+            "unit": "General Pharmacology",
+            "score": 3,
+            "total": 4,
+            "pnl": 75.0
         }
     ]
 }
