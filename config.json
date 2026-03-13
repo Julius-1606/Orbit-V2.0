@@ -507,6 +507,13 @@
             "score": 1,
             "total": 1,
             "pnl": 100.0
+        },
+        {
+            "timestamp": "2026-03-13 01:51",
+            "unit": "Skills Lab Methodology",
+            "score": 1,
+            "total": 1,
+            "pnl": 100.0
         }
     ]
 }
