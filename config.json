@@ -154,20 +154,6 @@
     "active_session": [],
     "archived_sessions": [
         {
-            "timestamp": "2026-03-13 00:14",
-            "summary": "Let us kick off with anatomy",
-            "messages": [
-                {
-                    "role": "user",
-                    "content": "Let us kick off with anatomy"
-                },
-                {
-                    "role": "assistant",
-                    "content": "Hello! I am **Edu_AI**, your academic assistant. Since we are focusing on an **Easy Review** level for **Anatomy (Abdomen and Thorax)**, let\u2019s start with a foundational question regarding the division of the trunk.\n\n**Question:**\nThe diaphragm serves as the anatomical landmark separating the thoracic cavity from the abdominal cavity. Can you name the **three major openings (hiatuses)** in the diaphragm and the specific **vertebral levels** at which they occur?"
-                }
-            ]
-        },
-        {
             "timestamp": "2026-03-12 23:23",
             "summary": "Lets start on pharmacology",
             "messages": [
@@ -505,8 +491,8 @@
         }
     ],
     "low_data_mode": false,
-    "lock_background": true,
-    "ai_persona": "Standard Orbit",
+    "lock_background": false,
+    "ai_persona": "Standard Edu_AI",
     "quiz_history": [
         {
             "timestamp": "2026-03-12 12:07",
@@ -516,45 +502,10 @@
             "pnl": 0.0
         },
         {
-            "timestamp": "2026-03-13 00:08",
-            "unit": "Medical Biochemistry",
-            "score": 4,
-            "total": 6,
-            "pnl": 66.66666666666666
-        },
-        {
-            "timestamp": "2026-03-13 00:36",
-            "unit": "Clinical Methods",
-            "score": 3,
-            "total": 3,
-            "pnl": 100.0
-        },
-        {
-            "timestamp": "2026-03-13 00:41",
-            "unit": "Community Health",
-            "score": 5,
-            "total": 7,
-            "pnl": 71.42857142857143
-        },
-        {
-            "timestamp": "2026-03-13 00:44",
-            "unit": "Essentials of disaster management",
-            "score": 4,
-            "total": 4,
-            "pnl": 100.0
-        },
-        {
-            "timestamp": "2026-03-13 00:50",
-            "unit": "Clinical Methods",
-            "score": 3,
-            "total": 3,
-            "pnl": 100.0
-        },
-        {
-            "timestamp": "2026-03-13 00:50",
-            "unit": "Clinical Methods",
-            "score": 3,
-            "total": 3,
+            "timestamp": "2026-03-13 01:51",
+            "unit": "Skills Lab Methodology",
+            "score": 1,
+            "total": 1,
             "pnl": 100.0
         }
     ]
