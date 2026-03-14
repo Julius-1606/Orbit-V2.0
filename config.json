@@ -614,6 +614,13 @@
             "score": 2,
             "total": 7,
             "pnl": 28.57142857142857
+        },
+        {
+            "timestamp": "2026-03-14 10:51",
+            "unit": "General Pharmacology",
+            "score": 1,
+            "total": 1,
+            "pnl": 100.0
         }
     ]
 }
