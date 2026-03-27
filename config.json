@@ -671,7 +671,7 @@
         }
     ],
     "low_data_mode": false,
-    "lock_background": false,
+    "lock_background": true,
     "ai_persona": "Standard Orbit",
     "quiz_history": [
         {
