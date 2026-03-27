@@ -728,6 +728,13 @@
             "score": 1,
             "total": 1,
             "pnl": 100.0
+        },
+        {
+            "timestamp": "2026-03-27 00:33",
+            "unit": "clinical pathology",
+            "score": 0,
+            "total": 1,
+            "pnl": 0.0
         }
     ]
 }
